@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Treat Visual Tokens as Text? But Your MLLM Only Needs Fewer Efforts to See">
+  <meta name="keywords" content="Efficient MLLMs, Model pruning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaling Concepts</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8P4QSMJ1ZN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8P4QSMJ1ZN');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!--<link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Enable smooth scrolling for only main page -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .rainbow {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 32px;
+  font-family: monospace;
+  letter-spacing: 5px;
+}
+.rainbow_text_animated {
+  background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+  0%,100% {
+      background-position: 0 0;
+  }
+
+  50% {
+      background-position: 100% 0;
+  }
+}
+  </style>
+
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">
+          <span class="rainbow_text_animated" style="vertical-align: middle">Treat Visual Tokens as Text? But Your MLLM Only Needs Fewer Efforts to See</span>
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://zhangaipi.github.io/" target="_blank">Zeliang Zhang</a><sup style="color:#6fbf73;">1</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=8NhTE04AAAAJ&hl=en" target="_blank">Phu Pham</a><sup style="color:#6666ff">2</sup>,</span>
+            <span class="author-block"><a href="hhttps://scholar.google.com/citations?user=zqndXGgAAAAJ&hl=en">Wentian Zhao</a><sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=PFeC45EAAAAJ&hl=en" target="_blank">Kun Wan</a><sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block"><a href="https://yujheli.github.io/" target="_blank">Yu-Jhe Li</a><sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block"><a href="https://www.zhjjn.com/" target="_blank">Jianing Zhou</a><sup style="color:aquamarine;">4</sup></span><br>
+            <span class="author-block"><a href="https://www.linkedin.com/in/daniel-miranda-01755742/" target="_blank">Daniel Miranda</a><sup style="color:#ed4b82;">3</sup></span><br>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=Zf53hpMAAAAJ&hl=en" target="_blank">Ajinkya  Kale</a><sup style="color:#ed4b82;">3</sup></span><br>
+            <span class="author-block"><a href="https://www.cs.rochester.edu/~cxu22/" target="_blank">Chenliang Xu</a><sup style="color:#6fbf73;">1</sup></span><br>
+
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#6fbf73;">1</sup>University of Rochester</span>,
+            <span class="author-block"><sup style="color:#6666ff">2</sup>Purdue University</span>,
+              <span class="author-block"><sup style="color:#ed4b82">3</sup>Adobe Inc.</span>
+              <span class="author-block"><sup style="color:aquamarine;">4</sup>UIUC</span>
+          </div>
+
+          <div class="column has-text-centered" style="padding-bottom:0;">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.06169"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.06169"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/ZhangAIPI/YOPO_MLLM_Pruning"
+                   target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <!-- Bibtex Link.
+              <span class="link-block">
+                <a href="#bibtex"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-book"></i>
+                  </span>
+                  <span>BibTeX</span>
+                  </a>
+              </span>
+            </div>
+          </div> -->
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEASER + INTRO -->
+ <!-- the width should be the same with other element -->
+ <section class="hero teaser">
+  <h2 class="subtitle has-text-centered">
+    <b>tl;dr:</b> We don't prune tokens<br>but reduce the computation overhead by passing visual tokens through a sub-MLLM.
+  </h2>
+  <!-- <div class="is-centered is-max-desktop teaser">
+    <video class="teaser-video" autoplay muted loop playsinline>
+      <source src=""
+              type="video/mp4">
+    </video>
+  </div> -->
+</section>
+<br>
+
+
+
+<!-- <section class="section" id="bibtex">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@article{,
+  title     = {},
+  author    = {},
+  booktitle = {},
+  year      = {2024}
+  url       = {},
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- OVERVIEW -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-three-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this study, we investigate the redundancy in visual computation at both the parameter and computational pattern levels within LLaVA, a representative MLLM, and introduce a suite of streamlined strategies to enhance efficiency. These include neighbor-aware visual token attention, pruning of inactive visual attention heads, and selective layer dropping for visual computations. By implementing these strategies in LLaVA, we achieve a reduction in computational demands of 88% while maintaining model performance across key benchmarks. Additionally, we validate the existence of visual computational redundancy in other MLLMs, such as Qwen2-VL-7B and InternVL-2.0-4B/8B/26B. These results present a novel pathway for MLLMs to handle dense visual tokens with minimal computational costs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<img src="./static/images/method.png" class="center-img" style="width: 50%; max-width: 800px; margin: 0 auto; display: block;"/>
+
+<footer class="footer">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content">
+          <p>
+            This website is licensed under a 
+            <a rel="license" 
+            href="http://creativecommons.org/licenses/by-sa/4.0/"
+            target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>, 
+            and the template is from the <a href="https://nerfies.github.io/" 
+            target="_blank">Nerfies</a> and the <a href="https://dangeng.github.io/visual_anagrams/">Visual Anagrams</a> projects. You are free to use the 
+            <a href="https://github.com/nerfies/nerfies.github.io"
+            target="_blank">source code</a> of this website,
+            but please keep these links in the footer, 
+            as requested by the authors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
