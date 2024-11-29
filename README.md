@@ -77,6 +77,10 @@ bash scripts/v1_5/finetune_yopo.sh
 ```
 ## Evaluation
 
+## License
+
+This project is released under the [MIT license](LICENSE). Parts of this project contain code and models from other sources, which are subject to their respective licenses.
+
 ## Citation
 
 If you find the idea or code useful for your research, please consider citing our [paper](https://arxiv.org/abs/2403.12777):
