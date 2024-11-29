@@ -1,9 +1,7 @@
 # :rocket: YOPO: You Only Prune Once for Your MLLMs
 
 
-This repository contains the core code to implement the idea of  our paper:
-
-[Treat Visual Tokens as Text? But Your MLLM Only Needs Fewer Efforts to See](https://arxiv.org/abs/2410.06169v2)
+Official code for our paper: [Treat Visual Tokens as Text? But Your MLLM Only Needs Fewer Efforts to See](https://arxiv.org/abs/2410.06169v2)
 
 ![Alt text](images/method_fig.png "Overview of our method.")
 
