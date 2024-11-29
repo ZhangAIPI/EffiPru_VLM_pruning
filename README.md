@@ -15,11 +15,11 @@ This repository contains the core code to implement the idea of  our paper:
 
 Compared with text information, visual information is much more sparse, making it not necessary to use all parameters of MLLM for visual-related computation.
 
-***Neighbor-aware visual attention computation:*** Only spatial neighbor visual tokens are involved in the computation.
-***Non-active visual attention dropping:*** The attention weight ratio between the visual and text tokens can be used to evaluate the importance of attention heads in visual computation, thus helping to prune lazy neurons.
+***Neighbor-aware visual attention computation:*** Only spatial neighbor visual tokens are involved in the computation.      
+***Non-active visual attention dropping:*** The attention weight ratio between the visual and text tokens can be used to evaluate the importance of attention heads in visual computation, thus helping to prune lazy neurons.     
 ***Sparse visual projection:*** Benefiting from the sparse visual representation, most neurons can be dropped in FFN visual computation.
-L***ayer drop for visual computation:*** Stopping the visual-related computation for the last several layers.
-
+L***ayer drop for visual computation:*** Stopping the visual-related computation for the last several layers.  
+ 
 
 
 
