@@ -12,47 +12,58 @@ This repository contains the core code to implement the idea of  our paper:
 ### **Can we prune our MLLM just once instead?**:interrobang: ###
 
 
-## Abstract
-By treating visual tokens from visual encoders as text tokens, Multimodal Large Language Models (MLLMs) have achieved remarkable progress across diverse visual understanding tasks, leveraging the robust architectures of Large Language Models (LLMs). However, as token counts grow, the quadratic scaling of computation in LLMs introduces a significant efficiency bottleneck, impeding further scalability. Although recent approaches have explored pruning visual tokens or employing lighter LLM architectures, the computational overhead from an increasing number of visual tokens remains a substantial challenge.
 
-In this study, we investigate the redundancy in visual computation at both the parameter and computational pattern levels within LLaVA, a representative MLLM, and introduce a suite of streamlined strategies to enhance efficiency. These include **neighbor-aware visual token attention**, **pruning of inactive visual attention heads**, and **selective layer dropping** for visual computations. By implementing these strategies in LLaVA, we achieve a reduction in computational demands of 88% while maintaining model performance across key benchmarks. Additionally, we validate the existence of visual computational redundancy in other MLLMs, such as Qwen2-VL-7B and InternVL-2.0-4B/8B/26B. These results present a novel pathway for MLLMs to handle dense visual tokens with minimal computational costs. Code and model checkpoints will be released to support further research.
-
-
-
-
-## How to use our code?
-1. set up LLavA  
+## Install
+1. Set up LLavA  https://github.com/haotian-liu/LLaVA 
 ```Shell
 cd LLaVA
 conda create -n llava python=3.10 -y
 conda activate llava
 pip install --upgrade pip  
 pip install -e .
+pip install -e ".[train]"
+pip install flash-attn --no-build-isolation
 ```
 
-2. Update the modeling file to ours for acceleration
+2. Copy our updated `modeling_llama.py` to transformer library
 ```Shell
-cd ~
-cp modeling_llama_prune.py {YOUR ENV PATH}/lib/python3.10/site-packages/transformers//models/llama/modeling_llama.py
+cp ../modeling_llama_prune.py {YOUR ENV PATH}/lib/python3.10/site-packages/transformers//models/llama/modeling_llama.py
+# eg. cp ../modeling_llama_prune.py /opt/conda/envs/llava/lib/python3.10/site-packages/transformers//models/llama/modeling_llama.py
+
 ```
+## Inference
+1. Download the checkpoints of pruned LLaVA
+   
+   [LLaVA-1.5-7B (12% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-7b-prune-zp12)
 
-3. Download the checkpoints of pruned LLaVA
+   [LLaVA-1.5-7B (25% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-13b-prune-zp25)
 
-1. [LLaVA-1.5-7B (12% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-7b-prune-zp12)
-2. [LLaVA-1.5-7B (25% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-13b-prune-zp25)
-3. [LLaVA-1.5-13B (12% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-7b-prune-zp12)
-4. [LLaVA-1.5-13B (25% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-13b-prune-zp25)
+   [LLaVA-1.5-13B (12% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-7b-prune-zp12)
 
-:warning: for sanity check, please refer to the [infer.sh](infer.sh).
+   [LLaVA-1.5-13B (25% FLOPs)](https://huggingface.co/zwt123home123/llava-1.5-13b-prune-zp25)
 
+2. Run inference
+```Shell
+bash infer.sh
+```
 :triangular_flag_on_post:  We will release the code for pruning the visual computation in Qwen, InternVL without the fine-tuning process very soon.  
-:triangular_flag_on_post:  The code for training pruned LLava will also be released soon.  
+ 
+## Training
 
+1. Download and set up LLaVA-1.5 2nd stage training data
+   https://github.com/haotian-liu/LLaVA/blob/main/docs/Data.md
+2. Download LLaVA-1.5 mm_projector weights
+   
+   https://huggingface.co/liuhaotian/llava-v1.5-mlp2x-336px-pretrain-vicuna-13b-v1.5
 
-## Main result
-![Results on prunining the LLaVa](images/main_result.png "Results on prunining the LLaVa")
-![Results on pruning the Qwen and InternVL](images/many_models.png "Results on pruning the Qwen and InternVL")
+   https://huggingface.co/liuhaotian/llava-v1.5-mlp2x-336px-pretrain-vicuna-7b-v1.5
 
+   put them into `./checkpoints/llava-v1.5-13b-pretrain` and `./checkpoints/llava-v1.5-7b-pretrain` respectively
+4. Run training
+```Shell
+bash scripts/v1_5/finetune_yopo.sh
+```
+## Evaluation
 
 ## Citation
 
