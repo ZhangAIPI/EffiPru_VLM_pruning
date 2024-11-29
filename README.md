@@ -44,7 +44,7 @@ cp ../modeling_llama_prune.py {YOUR ENV PATH}/lib/python3.10/site-packages/trans
 
 2. Run inference
 ```Shell
-bash infer.sh
+bash LLavA/infer.sh
 ```
 :triangular_flag_on_post:  We will release the code for pruning the visual computation in Qwen, InternVL without the fine-tuning process very soon.  
  
