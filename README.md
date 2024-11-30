@@ -75,6 +75,11 @@ bash scripts/v1_5/finetune_yopo.sh
 ```
 ## Evaluation
 
+- We evaluated our model on multiple visual question-answering and reasoning benchmarks, including VQAv2, GQA, ScienceQA, TextVQA, POPE, MME, and MMBench.  
+- For evaluation, you can use either **LLaVA eval** or **lmms-eval**:  
+  - **LLaVA eval**: Detailed setup instructions can be found [here](https://github.com/haotian-liu/LLaVA/blob/main/docs/Evaluation.md).  
+  - **lmms-eval**: Detailed setup instructions can be found [here](https://github.com/EvolvingLMMs-Lab/lmms-eval).  
+
 ## License
 
 This project is released under the [MIT license](LICENSE). Parts of this project contain code and models from other sources, which are subject to their respective licenses.
