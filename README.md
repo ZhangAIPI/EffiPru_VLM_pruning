@@ -21,6 +21,12 @@ Compared with text information, visual information is much more sparse, making i
 Please refer to our paper for more details.
 
 
+## ToDO list
+:white_check_mark: pruning code for LLaVA   
+:white_check_mark: checkpoints of pruned LLaVA     
+:white_large_square:  pruning code for Qwen2-VL  
+:white_large_square:  pruning code for InternVL     
+
 
 
 ## Install
@@ -41,6 +47,11 @@ cp ../modeling_llama_prune.py {YOUR ENV PATH}/lib/python3.10/site-packages/trans
 # eg. cp ../modeling_llama_prune.py /opt/conda/envs/llava/lib/python3.10/site-packages/transformers//models/llama/modeling_llama.py
 
 ```
+
+
+
+
+
 ## Inference
 1. Download the checkpoints of pruned LLaVA
    
@@ -79,13 +90,6 @@ bash scripts/v1_5/finetune_yopo.sh
 - For evaluation, you can use either **LLaVA eval** or **lmms-eval**:  
   - **LLaVA eval**: Detailed setup instructions can be found [here](https://github.com/haotian-liu/LLaVA/blob/main/docs/Evaluation.md).  
   - **lmms-eval**: Detailed setup instructions can be found [here](https://github.com/EvolvingLMMs-Lab/lmms-eval).  
-
-
-## ToDO list
-:white_check_mark: pruning code for LLaVA   
-:white_check_mark: checkpoints of pruned LLaVA     
-:white_large_square:  pruning code for Qwen2-VL  
-:white_large_square:  pruning code for InternVL     
 
 
 ## License
