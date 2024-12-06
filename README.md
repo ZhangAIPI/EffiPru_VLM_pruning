@@ -80,6 +80,14 @@ bash scripts/v1_5/finetune_yopo.sh
   - **LLaVA eval**: Detailed setup instructions can be found [here](https://github.com/haotian-liu/LLaVA/blob/main/docs/Evaluation.md).  
   - **lmms-eval**: Detailed setup instructions can be found [here](https://github.com/EvolvingLMMs-Lab/lmms-eval).  
 
+
+## ToDO list
+:white_check_mark: pruning code for LLaVA   
+:white_check_mark: checkpoints of pruned LLaVA     
+:white_large_square:  pruning code for Qwen  
+:white_large_square:  pruning code for InternVL     
+
+
 ## License
 
 This project is released under the [MIT license](LICENSE). Parts of this project contain code and models from other sources, which are subject to their respective licenses.
