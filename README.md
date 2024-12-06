@@ -84,7 +84,7 @@ bash scripts/v1_5/finetune_yopo.sh
 ## ToDO list
 :white_check_mark: pruning code for LLaVA   
 :white_check_mark: checkpoints of pruned LLaVA     
-:white_large_square:  pruning code for Qwen  
+:white_large_square:  pruning code for Qwen2-VL  
 :white_large_square:  pruning code for InternVL     
 
 
