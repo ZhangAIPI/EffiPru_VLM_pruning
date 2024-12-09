@@ -124,7 +124,7 @@ model = AutoModel.from_pretrained(
     trust_remote_code=True).eval().cuda()
 ```
 
-Be sure to set ***use_flash_attn=False**
+Be sure to set **use_flash_attn=False**
 
 
 
