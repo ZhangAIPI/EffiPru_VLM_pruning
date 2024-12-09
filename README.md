@@ -45,7 +45,7 @@ pip install -e ".[train]"
 pip install flash-attn --no-build-isolation   
 pip install transformers==4.36.2
 ```   
-Besure to check the last step to degrade the version of transformers, otherwise there will be some issue during the inference.   
+**Be sure to check the last step to degrade the version of transformers, otherwise there will be some issue during the inference.**   
 
 
 
