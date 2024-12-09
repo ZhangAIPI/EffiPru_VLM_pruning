@@ -76,7 +76,6 @@ cp ../modeling_llama_prune.py {YOUR ENV PATH}/lib/python3.10/site-packages/trans
 ```Shell
 bash LLavA/infer.sh
 ```
-:triangular_flag_on_post:  We will release the code for pruning the visual computation in Qwen, InternVL without the fine-tuning process very soon.  
  
 ## Training
 
@@ -124,6 +123,8 @@ model = AutoModel.from_pretrained(
     use_flash_attn=False,
     trust_remote_code=True).eval().cuda()
 ```
+
+Be sure to set ***use_flash_attn=False**
 
 
 
