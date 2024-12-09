@@ -24,13 +24,17 @@ Please refer to our paper for more details.
 ## ToDO list
 :white_check_mark: pruning code for LLaVA   
 :white_check_mark: checkpoints of pruned LLaVA     
-:white_large_square:  pruning code for Qwen2-VL  
-:white_large_square:  pruning code for InternVL     
+:white_check_mark:  pruning code for Qwen2-VL  
+:white_check_mark:  pruning code for InternVL     
+
+
+The currently released pruning code is used for simulation through the masking operation. The code integrating the proposed strategies into the KV-cache computation will be released soon.
+
 
 
 
 ## Install
-1. Set up LLavA  https://github.com/haotian-liu/LLaVA 
+1.  Set up LLavA  https://github.com/haotian-liu/LLaVA 
 ```Shell
 cd LLaVA
 conda create -n llava python=3.10 -y
@@ -38,8 +42,13 @@ conda activate llava
 pip install --upgrade pip  
 pip install -e .
 pip install -e ".[train]"
-pip install flash-attn --no-build-isolation
-```
+pip install flash-attn --no-build-isolation   
+pip install transformers==4.36.2
+```   
+Besure to check the last step to degrade the version of transformers, otherwise there will be some issue during the inference.   
+
+
+
 
 2. Copy our updated `modeling_llama.py` to transformer library
 ```Shell
@@ -90,6 +99,51 @@ bash scripts/v1_5/finetune_yopo.sh
 - For evaluation, you can use either **LLaVA eval** or **lmms-eval**:  
   - **LLaVA eval**: Detailed setup instructions can be found [here](https://github.com/haotian-liu/LLaVA/blob/main/docs/Evaluation.md).  
   - **lmms-eval**: Detailed setup instructions can be found [here](https://github.com/EvolvingLMMs-Lab/lmms-eval).  
+
+
+## For InternVL2-4B/8B/26B inference pruning without fine-tuning   
+1. please follow the instructions in InternVL-2 to install the InternVL: https://internvl.github.io/blog/2024-07-02-InternVL-2.0/   
+
+
+2. For convenience, we provide the pruning models here (note that these models have the same weights with the original one, we include the inference code with pruning stratgies in corresponding repo.)   
+https://huggingface.co/zwt123home123/InternVL2-4B-YOPO   
+https://huggingface.co/zwt123home123/InternVL2-8B-YOPO   
+https://huggingface.co/zwt123home123/InternVL2-26B-YOPO
+
+***What we change in the inference code?***   
+https://huggingface.co/zwt123home123/InternVL2-26B-YOPO/blob/main/modeling_internlm2.py#L311-L317   
+https://huggingface.co/zwt123home123/InternVL2-26B-YOPO/blob/main/modeling_internlm2.py#L446-L470   
+
+
+3. For evaluation,
+```Shell
+model = AutoModel.from_pretrained(
+    path,
+    torch_dtype=torch.bfloat16,
+    low_cpu_mem_usage=True,
+    use_flash_attn=False,
+    trust_remote_code=True).eval().cuda()
+```
+
+
+
+
+## For Qwen2-vl-8B  inference pruning without fine-tuning   
+1. please follow the instructions in Qwen2-vl-8B to install the InternVL: https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct   
+
+2. Copy our updated `modeling_qwen2_vl.py` to transformer library
+```Shell 
+cp modeling_qwen2_vl.py {YOUR ENV PATH}/lib/python3.10/site-packages/transformers/models/qwen2_vl/modeling_qwen2_vl.py
+```
+
+
+## The computation of headmask
+
+We provide the code to compute the headmask for pruning non-activate visual attention heads in `gen_mask_llava.py` and `gen_mask_internvl_qwen.py`.   
+
+The headmask for different models can be found in https://drive.google.com/drive/folders/17xPC4pPTs-7WQDoRvjVu1ZYRa7y7GAZE?usp=sharing  
+
+You can generate the headmask for your own model based on your own calibration dataset refering to the code here: https://huggingface.co/zwt123home123/InternVL2-8B-YOPO/blob/main/modeling_internlm2.py#L462-L471
 
 
 ## License

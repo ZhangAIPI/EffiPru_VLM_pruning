@@ -42,11 +42,12 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
     def __init__(self, config):
         super(LlamaForCausalLM, self).__init__(config)
-        config.attncut_w  = int(os.environ.get('attncut_w'))
-        config.layercut_num  = int(os.environ.get('layercut_num'))
-        config.headcut_num = int(os.environ.get('headcut_num')) 
-        config.mlpcut_ratio = int(os.environ.get('mlpcut_ratio')) 
-        config.sprompt_len = int(os.environ.get('sprompt_len')) 
+        if os.environ.get('attncut_w'):
+            config.attncut_w  = int(os.environ.get('attncut_w'))
+            config.layercut_num  = int(os.environ.get('layercut_num'))
+            config.headcut_num = int(os.environ.get('headcut_num')) 
+            config.mlpcut_ratio = int(os.environ.get('mlpcut_ratio')) 
+            config.sprompt_len = int(os.environ.get('sprompt_len')) 
 
         self.model = LlavaLlamaModel(config)
         self.pretraining_tp = config.pretraining_tp
